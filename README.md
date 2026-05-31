@@ -144,7 +144,7 @@ Desempeno.Inst_Eva/
 
 ---
 
-### 📄 Otros archivos
+### Otros archivos
 
 #### `requirements.txt`
 - Lista las librerías necesarias para que el proyecto funcione.

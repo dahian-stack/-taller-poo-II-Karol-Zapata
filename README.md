@@ -75,7 +75,7 @@ python main.py
 
 ---
 
-## 🖥️ ¿Qué puedo hacer en el programa?
+## ¿Qué puedo hacer en el programa?
 
 Al correrlo, aparece este menú:
 
@@ -92,7 +92,7 @@ Desde cada módulo puedes **agregar, ver, buscar, editar y eliminar** registros.
 
 ---
 
-## ❓ Problemas frecuentes
+## Problemas frecuentes
 
 **"No module named..."**
 → Asegúrate de estar en la carpeta raíz del proyecto (donde está `main.py`) antes de ejecutarlo.

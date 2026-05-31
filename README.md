@@ -1,5 +1,105 @@
 ## Sistema Académico - Gestión de Estudiantes y Profesores
-Sistema desarrollado en Python bajo una estructura organizada y modular, siguiendo buenas prácticas de desarrollo y Programación Orientada a Objetos. Permite gestionar la información de estudiantes, profesores, y en futuras versiones materias y calificaciones.
+Este proyecto es un sistema de gestión académica desarrollado en Python, diseñado para administrar la información de estudiantes y profesores de manera organizada. Permite realizar operaciones completas de creación, lectura, actualización y eliminación de registros, además de búsquedas avanzadas y generación de estadísticas. Utiliza una estructura modular basada en buenas prácticas de desarrollo, separando modelos, lógica de negocio, almacenamiento e interfaz de usuario, facilitando su mantenimiento y escalabilidad.
+---
+
+## Las instrucciones para ejecutar el proyecto localmente (cómo instalar dependencias y cómo correr main.py).
+
+## ✅ Antes de empezar
+
+Asegúrate de tener **Python 3.9 o superior** instalado. Para verificarlo, abre la terminal y escribe:
+
+```bash
+python --version
+```
+
+Si ves algo como `Python 3.10.x`, estás listo.
+
+---
+
+## ▶️ Cómo correr el proyecto
+
+Sigue estos pasos en orden:
+
+### Paso 1 — Descarga el proyecto
+
+Clónalo con Git:
+```bash
+git clone <URL-del-repositorio>
+cd SistemaEst
+```
+
+O si lo descargaste como ZIP, descomprímelo y entra a la carpeta desde la terminal.
+
+---
+
+### Paso 2 — Crea el entorno virtual
+
+El entorno virtual es un espacio aislado para instalar las librerías del proyecto sin afectar tu Python global.
+
+**En Windows:**
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+**En macOS o Linux:**
+```bash
+python -m venv .venv
+source .venv/bin/activate
+```
+
+> 💡 Si usas **PyCharm**, esto se hace automático al abrir el proyecto. Solo acepta cuando el IDE te lo proponga.
+
+Sabrás que está activo porque verás `(.venv)` al inicio de tu terminal.
+
+---
+
+### Paso 3 — Instala las dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+> Este proyecto solo usa librerías que vienen incluidas con Python (`json`, `os`, `datetime`), así que es posible que no se instale nada nuevo. Igual ejecuta el comando para estar seguro.
+
+---
+
+### Paso 4 — Ejecuta el programa
+
+```bash
+python main.py
+```
+
+¡Listo! Verás el menú principal en la terminal.
+
+---
+
+## 🖥️ ¿Qué puedo hacer en el programa?
+
+Al correrlo, aparece este menú:
+
+```
+🏫 SISTEMA ACADÉMICO - GESTIÓN INTEGRAL
+1️⃣  🎓 Gestión de Estudiantes
+2️⃣  👨‍🏫 Gestión de Profesores
+3️⃣  📊 Estadísticas Generales
+4️⃣  ℹ️  Información del Sistema
+0️⃣  🚪 Salir
+```
+
+Desde cada módulo puedes **agregar, ver, buscar, editar y eliminar** registros. Los datos se guardan solos en la carpeta `data/`.
+
+---
+
+## ❓ Problemas frecuentes
+
+**"No module named..."**
+→ Asegúrate de estar en la carpeta raíz del proyecto (donde está `main.py`) antes de ejecutarlo.
+
+**El entorno virtual no se activa**
+→ Verifica que creaste el `.venv` dentro de la carpeta del proyecto y que usas el comando correcto según tu sistema operativo.
+
+---
 
 ## Estructura del Proyecto y Descripción de Archivos
 
@@ -29,126 +129,3 @@ Desempeno.Inst_Eva/
 ├── requirements.txt           → Dependencias del proyecto
 └── README.md                  → Este archivo, documentación general
 ```
-
----
-
-## Detalle de Contenido por Archivo
-
-### `main.py`
-- **Ubicación:** Raíz del proyecto
-- **Contenido:**
-  - Importa los módulos de interfaz de usuario
-  - Define la clase `AcademicSystemMenu` con el menú principal
-  - Gestiona la navegación entre módulos: Estudiantes, Profesores, Estadísticas y Salida
-  - Manejo de errores y excepciones generales del sistema
-- **Función:** Es el punto de entrada que conecta todos los componentes y arranca la aplicación.
-
----
-
-### Carpeta `src/models/`
-
-#### `student.py`
-- **Contenido:**
-  - Clase `Student` con atributos: `id`, `name`, `age`, `grade`, `email`, `created_at`
-  - Método `to_dict()`: Convierte el objeto a diccionario para guardar en JSON
-  - Método de clase `from_dict()`: Crea un objeto `Student` desde datos de diccionario
-  - Método `__str__()`: Representación legible de los datos
-- **Función:** Define la estructura y características de un estudiante.
-
-#### `teacher.py`
-- **Contenido:**
-  - Clase `Teacher` con atributos: `id`, `name`, `specialty` (especialidad), `email`, `salary` (salario opcional), `created_at`
-  - Métodos `to_dict()`, `from_dict()` y `__str__()` con la misma lógica que el modelo de estudiante
-- **Función:** Define la estructura y características de un profesor.
-
-#### `__init__.py`
-- Archivo vacío que indica a Python que esta carpeta es un paquete importable.
-
----
-
-### Carpeta `src/storage/`
-
-#### `json_storage.py`
-- **Contenido:**
-  - Clase `JSONStorage` encargada de toda la lectura y escritura
-  - Métodos:
-    - `_ensure_data_directory()`: Crea la carpeta `data/` si no existe
-    - `load_students()`: Lee y carga datos desde el archivo JSON
-    - `save_students()`: Guarda la lista de objetos en formato JSON
-    - `file_exists()`, `get_file_info()`: Utilidades de verificación
-  - Manejo de errores: Archivos corruptos, respaldo automático, excepciones
-- **Función:** Capa de persistencia reutilizable para cualquier entidad (estudiantes, profesores, etc.).
-
-#### `__init__.py`
-- Archivo vacío de configuración de paquete.
-
----
-
-### Carpeta `src/services/`
-
-#### `student_service.py`
-- **Contenido:**
-  - Clase `StudentService` que conecta el modelo con el almacenamiento
-  - Inyección de dependencias: Recibe el almacenamiento o usa uno por defecto
-  - Operaciones CRUD completas:
-    - `add_student()`: Con validaciones de nombre, edad, correo único
-    - `get_all_students()`, `get_student_by_id()`
-    - `update_student()`: Con respaldo de datos y rollback si hay error
-    - `delete_student()`: Con confirmación y restauración
-  - Búsquedas: por término, grado, rango de edad
-  - Estadísticas: total, promedio de edad, distribución por grados
-- **Función:** Contiene **toda la lógica de negocio** y reglas para gestionar estudiantes. No interactúa directamente con la pantalla ni con el archivo, coordina todo.
-
-#### `teacher_service.py`
-- **Contenido:**
-  - Clase `TeacherService` siguiendo el mismo patrón que `StudentService`
-  - Validaciones específicas: especialidad obligatoria, salario no negativo, correo único
-  - Búsquedas: por especialidad, rango de salario
-  - Estadísticas: promedio salarial, cantidad por especialidad
-  - Reutiliza `JSONStorage` apuntando al archivo `teachers.json`
-- **Función:** Lógica de negocio y reglas para la gestión completa de profesores.
-
-#### `__init__.py`
-- Archivo vacío de configuración de paquete.
-
----
-
-### Carpeta `src/ui/`
-
-#### `menu.py`
-- **Contenido:**
-  - Clase `StudentMenu` con la interfaz de usuario del módulo de estudiantes
-  - Menú principal y submenús de navegación
-  - Métodos para entrada de datos con validación de tipos
-  - Funciones para mostrar listados, detalles, estadísticas
-  - Métodos `handle_*()` que conectan las opciones del menú con los servicios
-- **Función:** Todo lo que el usuario ve y utiliza para interactuar con la información de estudiantes.
-
-#### `teacher_menu.py`
-- **Contenido:**
-  - Clase `TeacherMenu` idéntica en estructura a `StudentMenu`
-  - Menús adaptados a los campos del profesor (especialidad, salario)
-  - Formato especial para mostrar salarios y estadísticas económicas
-- **Función:** Interfaz completa para la gestión visual de profesores.
-
-#### `__init__.py`
-- Archivo vacío de configuración de paquete.
-
----
-
-### Carpeta `data/`
-> *Esta carpeta se crea automáticamente al ejecutar el sistema por primera vez*
-
-- **`students.json`:** Almacena en formato JSON la lista completa de estudiantes registrados.
-- **`teachers.json`:** Almacena en formato JSON la lista completa de profesores registrados.
-
----
-
-### Otros archivos
-
-#### `requirements.txt`
-- Lista las librerías necesarias para que el proyecto funcione.
-- Actualmente no requiere librerías externas, usa solo librerías estándar de Python.
-
-#### `README.md`
-- Este mismo archivo. Contiene la descripción, estructura y documentación de todo el proyecto.

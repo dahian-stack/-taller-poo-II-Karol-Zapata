@@ -1,4 +1,5 @@
 ## Sistema Académico - Gestión de Estudiantes y Profesores
+
 Este proyecto es un sistema de gestión académica desarrollado en Python, diseñado para administrar la información de estudiantes y profesores de manera organizada. Permite realizar operaciones completas de creación, lectura, actualización y eliminación de registros, además de búsquedas avanzadas y generación de estadísticas. Utiliza una estructura modular basada en buenas prácticas de desarrollo, separando modelos, lógica de negocio, almacenamiento e interfaz de usuario, facilitando su mantenimiento y escalabilidad.
 ---
 
